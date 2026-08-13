@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate SVGs & landing page
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install xmllint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libxml2-utils
+
+      - name: Validate SVGs parse
+        run: |
+          set -e
+          found=0
+          while IFS= read -r -d '' svg; do
+            found=1
+            echo "xmllint: $svg"
+            xmllint --noout "$svg"
+          done < <(find . -name '*.svg' -not -path './.git/*' -print0)
+          if [ "$found" -eq 0 ]; then
+            echo "No SVG files found" >&2
+            exit 1
+          fi
+
+      - name: Lint landing page HTML (tidy, if available)
+        run: |
+          if sudo apt-get install -y --no-install-recommends tidy; then
+            # tidy exit codes: 0 = clean, 1 = warnings only, 2 = errors.
+            tidy -quiet -errors --drop-empty-elements no landing/index.html || status=$?
+            if [ "${status:-0}" -ge 2 ]; then
+              echo "tidy found HTML errors" >&2
+              exit 1
+            fi
+            echo "tidy: OK (exit ${status:-0})"
+          else
+            echo "tidy unavailable — skipping HTML lint"
+          fi

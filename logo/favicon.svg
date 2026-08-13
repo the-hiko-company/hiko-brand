@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Hiko">
+  <!-- Favicon: bolt on near-black tile. -->
+  <rect width="32" height="32" rx="7" fill="#0B0E14"/>
+  <path fill="#F5C518" d="M19.5 3 9 20 h5 L12.5 29 23 13 h-5 Z"/>
+</svg>

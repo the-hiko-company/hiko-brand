@@ -1,0 +1,30 @@
+/* Hiko brand tokens — CSS custom properties.
+ * Source of truth alongside tokens.yaml. See colors.md for usage rules. */
+
+:root {
+  /* Core */
+  --hiko-lightning: #F5C518;
+  --hiko-ion: #3EC5FF;
+  --hiko-night: #0B0E14;
+
+  /* Extended */
+  --hiko-night-raised: #121724;
+  --hiko-night-line: #232B3D;
+  --hiko-cloud: #E8EAF0;
+  --hiko-haze: #9AA3B5;
+  --hiko-lightning-dim: #B8940F;
+  --hiko-ion-dim: #2A8DBD;
+  --hiko-alert: #FF5D5D;
+
+  /* Type */
+  --hiko-font-sans: ui-sans-serif, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --hiko-font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* Rhythm */
+  --hiko-radius: 10px;
+  --hiko-space-1: 0.25rem;
+  --hiko-space-2: 0.5rem;
+  --hiko-space-3: 1rem;
+  --hiko-space-4: 2rem;
+  --hiko-space-5: 4rem;
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="The Hiko Company mark">
+  <!-- Hiko mark, single-color. Inherits currentColor from context; defaults to yellow. -->
+  <g fill="currentColor" color="#F5C518">
+    <path d="M48 10 L94 88 L48 64 L2 88 Z"/>
+    <path d="M60 0 L28 52 L46 52 L36 96 L68 40 L50 40 Z"/>
+  </g>
+</svg>

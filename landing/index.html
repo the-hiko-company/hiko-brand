@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Hiko Company — the aerial autonomy stack. Any airframe. Any autopilot. Anywhere.">
+  <meta name="theme-color" content="#0B0E14">
+  <title>The Hiko Company — aerial autonomy, electrified</title>
+  <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%230B0E14'/%3E%3Cpath%20fill='%23F5C518'%20d='M19.5%203%209%2020%20h5%20L12.5%2029%2023%2013%20h-5%20Z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="The Hiko Company — home">
+      <svg class="brand-mark" viewBox="0 0 96 96" aria-hidden="true">
+        <path fill="#3EC5FF" d="M48 10 L94 88 L48 64 L2 88 Z"/>
+        <path fill="#F5C518" d="M60 0 L28 52 L46 52 L36 96 L68 40 L50 40 Z"/>
+      </svg>
+      <span class="brand-name">THE HIKO COMPANY</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#stack">Stack</a>
+      <a href="#principles">Principles</a>
+      <a href="#lab">Lab</a>
+      <a href="#built">Built with Hiko</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <canvas id="sky" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <svg class="hero-mark" viewBox="0 0 96 96" aria-hidden="true">
+          <path fill="#3EC5FF" d="M48 10 L94 88 L48 64 L2 88 Z"/>
+          <path fill="#F5C518" d="M60 0 L28 52 L46 52 L36 96 L68 40 L50 40 Z"/>
+        </svg>
+        <p class="hero-kicker">hiko <span class="dim">/ˈhiː.kɔ/</span> — Māori: lightning, electricity</p>
+        <h1>The aerial autonomy stack.<br>
+          <span class="accent">Any airframe. Any autopilot. Anywhere.</span></h1>
+        <p class="hero-sub">
+          A lab pushing the boundaries of platform-agnostic flight autonomy.
+          Built on ROS&nbsp;2, implemented in-house from the hardware abstraction layer
+          to the fleet — lifecycle-first, executor-disciplined, every run recorded.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#stack">Explore the stack</a>
+          <a class="btn btn-ghost" href="#lab">Inside the lab</a>
+        </div>
+      </div>
+      <div class="hero-fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- ================= STACK ================= -->
+    <section id="stack" class="section">
+      <div class="section-head">
+        <h2><span class="section-num">01</span> The Stack</h2>
+        <p>Seven layers, one contract. Each layer speaks typed interfaces to the next;
+           every seam is a plugin; nothing is a black box.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <h3><span class="card-tag">core</span> Foundation</h3>
+          <p>Interfaces, runtime primitives, and the Conductor — a DAG lifecycle
+             orchestrator that brings the system up wave by wave and tears it down in reverse.</p>
+        </article>
+        <article class="card">
+          <h3><span class="card-tag">hal</span> Platform</h3>
+          <p>One abstraction over autopilots and sensors. PX4 today, Betaflight tomorrow,
+             the next flight controller after that — the stack above never notices.</p>
+        </article>
+        <article class="card">
+          <h3><span class="card-tag">gnc</span> Guidance · Nav · Control</h3>
+          <p>Proportional navigation, L1, pursuit. An ESKF that shrugs off GNSS dropout.
+             SE3 and cascaded control down to actuator allocation.</p>
+        </article>
+        <article class="card">
+          <h3><span class="card-tag">autonomy</span> Decision</h3>
+          <p>A custom behavior-tree engine, hierarchical state machines, task planning,
+             and a mission manager that closes the sense–plan–track loop.</p>
+        </article>
+        <article class="card">
+          <h3><span class="card-tag">perception</span> Vision</h3>
+          <p>Detection, tracking, optical flow, and a VIO front-end — written on raw
+             image buffers, tuned for embedded silicon.</p>
+        </article>
+        <article class="card">
+          <h3><span class="card-tag">fleet</span> Multi-robot</h3>
+          <p>Multi-agent pathfinding, consensus formation, hexagonal airspace cells,
+             and an aerial order protocol for coordinating many vehicles at once.</p>
+        </article>
+        <article class="card">
+          <h3><span class="card-tag">data</span> Memory</h3>
+          <p>Automatic chunked recording, host-metrics logging, and a flight-data
+             catalog: every simulation and every flight becomes a dataset by default.</p>
+        </article>
+        <article class="card card-rail">
+          <h3><span class="card-tag">rails</span> Sim · GCS · Dashboard · Deploy</h3>
+          <p>A SITL scenario harness, a ground control station, post-flight analysis,
+             and one-command bringup ride alongside the stack from bench to field.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= PRINCIPLES ================= -->
+    <section id="principles" class="section section-alt">
+      <div class="section-head">
+        <h2><span class="section-num">02</span> Principles</h2>
+        <p>Four rules, no exceptions. They cost us speed on day one and repay it every
+           day after.</p>
+      </div>
+      <div class="principle-grid">
+        <article class="principle">
+          <h3>Lifecycle-first</h3>
+          <p>Every node is a managed lifecycle node, orchestrated as a dependency graph.
+             Nothing starts by accident; nothing dies unnoticed.</p>
+        </article>
+        <article class="principle">
+          <h3>Executor discipline</h3>
+          <p>Explicit executors, deliberate callback groups, dedicated threads on hot
+             paths. Concurrency is designed and documented — never inherited.</p>
+        </article>
+        <article class="principle">
+          <h3>Implemented in-house</h3>
+          <p>Controllers, estimators, planners, protocols — written here on a
+             deliberately thin dependency base. If it flies, we can read every line.</p>
+        </article>
+        <article class="principle">
+          <h3>Every run recorded</h3>
+          <p>Recorder and syslogger sit in every graph, sim or flight. Data, host
+             metrics, code version, parameters: reproducibility is the default.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= LAB ================= -->
+    <section id="lab" class="section">
+      <div class="section-head">
+        <h2><span class="section-num">03</span> The Lab</h2>
+        <p>Experiments with falsifiable hypotheses and dated exit criteria. Some will
+           graduate into the stack; some will die in sim. Both outcomes count.</p>
+      </div>
+      <div class="lab-list">
+        <article class="lab-item">
+          <span class="lab-status">experiment</span>
+          <h3>h3x</h3>
+          <p>A clean-room hexagonal geospatial index for the sky: airspace cells for
+             fleet deconfliction, coverage, and corridor reservation — fast enough to
+             run onboard.</p>
+        </article>
+        <article class="lab-item">
+          <span class="lab-status">experiment</span>
+          <h3>vda5050-air</h3>
+          <p>What VDA5050 did for warehouse floors, adapted for the third dimension:
+             orders, 3D nodes, corridors, and contingencies for aerial fleets.</p>
+        </article>
+        <article class="lab-item">
+          <span class="lab-status">experiment</span>
+          <h3>gnss-denied</h3>
+          <p>Navigation that does not blink when the constellation disappears: seamless
+             estimator fallback across vision, flow, baro, and mag — flagged, measured,
+             recorded.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= BUILT WITH ================= -->
+    <section id="built" class="section section-alt">
+      <div class="section-head">
+        <h2><span class="section-num">04</span> Built with Hiko</h2>
+        <p>Field stories from airframes running the stack.</p>
+      </div>
+      <div class="built-placeholder">
+        <svg viewBox="0 0 96 96" aria-hidden="true">
+          <path fill="none" stroke="#232B3D" stroke-width="2" d="M48 10 L94 88 L48 64 L2 88 Z"/>
+          <path fill="none" stroke="#F5C518" stroke-width="2" d="M60 0 L28 52 L46 52 L36 96 L68 40 L50 40 Z"/>
+        </svg>
+        <p><strong>Charging.</strong> The first public flight logs land here.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg class="brand-mark" viewBox="0 0 96 96" aria-hidden="true">
+          <path fill="#3EC5FF" d="M48 10 L94 88 L48 64 L2 88 Z"/>
+          <path fill="#F5C518" d="M60 0 L28 52 L46 52 L36 96 L68 40 L50 40 Z"/>
+        </svg>
+        <div>
+          <p class="footer-name">THE HIKO COMPANY</p>
+          <p class="footer-tag">aerial autonomy, electrified</p>
+        </div>
+      </div>
+      <p class="footer-legal">© 2026 The Hiko Company. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

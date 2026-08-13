@@ -1,0 +1,33 @@
+# Hiko brand tokens — machine-readable palette for tooling.
+# Source of truth alongside tokens.css. See colors.md for usage rules.
+
+brand: the-hiko-company
+version: 1
+
+color:
+  core:
+    lightning: "#F5C518"   # primary accent — CTAs, highlights, the bolt
+    ion: "#3EC5FF"         # secondary accent — links, telemetry, the wing
+    night: "#0B0E14"       # ground — primary background
+  extended:
+    night_raised: "#121724"    # raised surfaces: cards, panels
+    night_line: "#232B3D"      # hairlines, borders, dividers
+    cloud: "#E8EAF0"           # primary text on dark
+    haze: "#9AA3B5"            # secondary text on dark
+    lightning_dim: "#B8940F"   # yellow for large fills / pressed states
+    ion_dim: "#2A8DBD"         # blue for large fills / visited states
+    alert: "#FF5D5D"           # errors, failsafe states only
+
+font:
+  sans: 'ui-sans-serif, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
+  mono: 'ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace'
+
+radius:
+  base: 10px
+
+space:
+  s1: 0.25rem
+  s2: 0.5rem
+  s3: 1rem
+  s4: 2rem
+  s5: 4rem

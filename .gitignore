@@ -1,0 +1,17 @@
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Rendered/exported artifacts (SVG sources are canonical)
+*.png
+*.pdf
+*.zip
+export/
+
+# Local preview servers / tooling
+node_modules/
+tmp/
+*.log
