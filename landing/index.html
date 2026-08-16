@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- Source of truth for the landing page design. The deployed copy lives in
+     the-hiko-company.github.io/landing/ (with the demo media checked in there);
+     this copy references the deployed site for video/stills to keep this repo light. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,25 +9,23 @@
   <meta name="description" content="The Hiko Company — the aerial autonomy stack. Any airframe. Any autopilot. Anywhere.">
   <meta name="theme-color" content="#0B0E14">
   <title>The Hiko Company — aerial autonomy, electrified</title>
-  <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%230B0E14'/%3E%3Cpath%20fill='%23F5C518'%20d='M19.5%203%209%2020%20h5%20L12.5%2029%2023%2013%20h-5%20Z'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="../logo/favicon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="The Hiko Company — home">
-      <svg class="brand-mark" viewBox="0 0 96 96" aria-hidden="true">
-        <path fill="#3EC5FF" d="M48 10 L94 88 L48 64 L2 88 Z"/>
-        <path fill="#F5C518" d="M60 0 L28 52 L46 52 L36 96 L68 40 L50 40 Z"/>
-      </svg>
+      <img class="brand-mark" src="../logo/mark.svg" alt="" aria-hidden="true">
       <span class="brand-name">THE HIKO COMPANY</span>
     </a>
     <nav class="site-nav" aria-label="Main">
+      <a href="#demo">Demo</a>
       <a href="#stack">Stack</a>
       <a href="#principles">Principles</a>
       <a href="#lab">Lab</a>
-      <a href="#built">Built with Hiko</a>
+      <a href="https://the-hiko-company.github.io/deck/">Deck</a>
+      <a class="nav-docs" href="https://the-hiko-company.github.io/docs/">Documentation</a>
     </nav>
   </header>
 
@@ -34,10 +35,7 @@
     <section class="hero">
       <canvas id="sky" aria-hidden="true"></canvas>
       <div class="hero-inner">
-        <svg class="hero-mark" viewBox="0 0 96 96" aria-hidden="true">
-          <path fill="#3EC5FF" d="M48 10 L94 88 L48 64 L2 88 Z"/>
-          <path fill="#F5C518" d="M60 0 L28 52 L46 52 L36 96 L68 40 L50 40 Z"/>
-        </svg>
+        <img class="hero-mark" src="../logo/mark.svg" alt="" aria-hidden="true">
         <p class="hero-kicker">hiko <span class="dim">/ˈhiː.kɔ/</span> — Māori: lightning, electricity</p>
         <h1>The aerial autonomy stack.<br>
           <span class="accent">Any airframe. Any autopilot. Anywhere.</span></h1>
@@ -45,19 +43,72 @@
           A lab pushing the boundaries of platform-agnostic flight autonomy.
           Built on ROS&nbsp;2, implemented in-house from the hardware abstraction layer
           to the fleet — lifecycle-first, executor-disciplined, every run recorded.
+          And it flies: real missions on hikosim and MuJoCo, one stack, two physics engines.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#stack">Explore the stack</a>
-          <a class="btn btn-ghost" href="#lab">Inside the lab</a>
+          <a class="btn btn-primary" href="#demo">Watch the stack fly</a>
+          <a class="btn btn-ghost" href="https://the-hiko-company.github.io/docs/">Read the documentation</a>
+          <a class="btn btn-ghost" href="#stack">Explore the stack</a>
         </div>
       </div>
       <div class="hero-fade" aria-hidden="true"></div>
     </section>
 
-    <!-- ================= STACK ================= -->
-    <section id="stack" class="section">
+    <!-- ================= DEMO ================= -->
+    <section id="demo" class="section">
       <div class="section-head">
-        <h2><span class="section-num">01</span> The Stack</h2>
+        <h2><span class="section-num">01</span> Watch the stack fly</h2>
+        <p>Four real closed-loop flights, brought up by the Conductor and recorded by
+           the stack's own data pipeline — every trace below is rendered straight from
+           the recordings. No synthetic telemetry.</p>
+      </div>
+
+      <figure class="demo-teaser">
+        <video class="teaser-video" autoplay muted loop playsinline preload="metadata"
+               poster="https://the-hiko-company.github.io/media/03-hover-telemetry.png"
+               aria-label="15-second teaser: autonomous flight telemetry from the Hiko Stack">
+          <source src="https://the-hiko-company.github.io/media/hiko-stack-teaser.mp4" type="video/mp4">
+        </video>
+        <figcaption>15 s highlight cut — closed-loop hover, autonomous waypoint square,
+          GNSS-denied dead reckoning, hikosim vs MuJoCo.</figcaption>
+      </figure>
+
+      <div class="demo-main">
+        <figure class="demo-player">
+          <video controls preload="none" poster="https://the-hiko-company.github.io/media/04-square-hero.png"
+                 aria-label="Full 95-second Hiko Stack demo video">
+            <source src="https://the-hiko-company.github.io/media/hiko-stack-demo.mp4" type="video/mp4">
+          </video>
+          <figcaption>The full demo — 95 s, silent, straight from the bags.</figcaption>
+        </figure>
+        <div class="demo-notes">
+          <ul>
+            <li><strong>Conductor bring-up</strong> — 7 lifecycle nodes in 6 dependency
+                waves; the real bring-up takes ~38 ms (time-dilated on screen, and
+                labeled as such).</li>
+            <li><strong>Autonomous missions</strong> — a latched <code>MissionPlan</code>
+                compiles to a behavior tree that flies a 40 m square to
+                <em>mission COMPLETED</em> in ~43 s, in wind.</li>
+            <li><strong>GNSS-denied</strong> — a full 30 s GNSS blackout mid-mission;
+                the ESKF flags <code>gnss_denied</code>, dead-reckons on
+                IMU + optical flow + baro + mag with ~3–4 m error, recovers, and the
+                mission still completes.</li>
+            <li><strong>Any simulator</strong> — the same mission flown on hikosim and
+                on MuJoCo through the HSB bridge (lockstep TCP at 500 Hz). Only the
+                physics plugin changes.</li>
+          </ul>
+          <div class="demo-links">
+            <a class="btn btn-ghost" href="https://the-hiko-company.github.io/docs/demo/">Read the full breakdown</a>
+            <a class="btn btn-ghost" href="https://the-hiko-company.github.io/deck/">View the deck</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STACK ================= -->
+    <section id="stack" class="section section-alt">
+      <div class="section-head">
+        <h2><span class="section-num">02</span> The Stack</h2>
         <p>Seven layers, one contract. Each layer speaks typed interfaces to the next;
            every seam is a plugin; nothing is a black box.</p>
       </div>
@@ -106,9 +157,9 @@
     </section>
 
     <!-- ================= PRINCIPLES ================= -->
-    <section id="principles" class="section section-alt">
+    <section id="principles" class="section">
       <div class="section-head">
-        <h2><span class="section-num">02</span> Principles</h2>
+        <h2><span class="section-num">03</span> Principles</h2>
         <p>Four rules, no exceptions. They cost us speed on day one and repay it every
            day after.</p>
       </div>
@@ -137,9 +188,9 @@
     </section>
 
     <!-- ================= LAB ================= -->
-    <section id="lab" class="section">
+    <section id="lab" class="section section-alt">
       <div class="section-head">
-        <h2><span class="section-num">03</span> The Lab</h2>
+        <h2><span class="section-num">04</span> The Lab</h2>
         <p>Experiments with falsifiable hypotheses and dated exit criteria. Some will
            graduate into the stack; some will die in sim. Both outcomes count.</p>
       </div>
@@ -168,10 +219,12 @@
     </section>
 
     <!-- ================= BUILT WITH ================= -->
-    <section id="built" class="section section-alt">
+    <section id="built" class="section">
       <div class="section-head">
-        <h2><span class="section-num">04</span> Built with Hiko</h2>
-        <p>Field stories from airframes running the stack.</p>
+        <h2><span class="section-num">05</span> Built with Hiko</h2>
+        <p>Field stories from airframes running the stack. The
+           <a href="#demo">first flights</a> are in — recorded in simulation, on two
+           physics engines, by the stack's own pipeline.</p>
       </div>
       <div class="built-placeholder">
         <svg viewBox="0 0 96 96" aria-hidden="true">
@@ -187,15 +240,16 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <svg class="brand-mark" viewBox="0 0 96 96" aria-hidden="true">
-          <path fill="#3EC5FF" d="M48 10 L94 88 L48 64 L2 88 Z"/>
-          <path fill="#F5C518" d="M60 0 L28 52 L46 52 L36 96 L68 40 L50 40 Z"/>
-        </svg>
+        <img class="brand-mark" src="../logo/mark.svg" alt="" aria-hidden="true">
         <div>
           <p class="footer-name">THE HIKO COMPANY</p>
           <p class="footer-tag">aerial autonomy, electrified</p>
         </div>
       </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://the-hiko-company.github.io/docs/">Documentation</a>
+        <a href="https://github.com/the-hiko-company">GitHub</a>
+      </nav>
       <p class="footer-legal">© 2026 The Hiko Company. All rights reserved.</p>
     </div>
   </footer>

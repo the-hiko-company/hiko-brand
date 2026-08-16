@@ -180,3 +180,46 @@
   if (reduceMotion.matches) drawStatic();
   else start();
 })();
+
+/* Demo teaser: honor prefers-reduced-motion (fall back to the static poster)
+ * and pause the loop while it is offscreen or the tab is hidden. */
+(function () {
+  "use strict";
+
+  var teaser = document.querySelector(".teaser-video");
+  if (!teaser) return;
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var inView = true;
+
+  function play() {
+    var p = teaser.play();
+    if (p && typeof p.catch === "function") p.catch(function () { /* autoplay blocked */ });
+  }
+
+  function update() {
+    if (reduceMotion.matches) {
+      /* Static poster fallback: stop the loop entirely and re-show the poster. */
+      teaser.removeAttribute("autoplay");
+      teaser.removeAttribute("loop");
+      teaser.pause();
+      teaser.load();
+    } else if (inView && document.visibilityState === "visible") {
+      teaser.setAttribute("loop", "");
+      play();
+    } else {
+      teaser.pause();
+    }
+  }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      inView = entries[0].isIntersecting;
+      update();
+    }).observe(teaser);
+  }
+
+  document.addEventListener("visibilitychange", update);
+  if (reduceMotion.addEventListener) reduceMotion.addEventListener("change", update);
+  update();
+})();

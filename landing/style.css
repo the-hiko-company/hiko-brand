@@ -66,13 +66,28 @@ a:hover { text-decoration: underline; }
   font-size: 0.82rem;
 }
 
-.site-nav { display: flex; gap: 1.4rem; }
+.site-nav { display: flex; align-items: center; gap: 1.4rem; }
 .site-nav a {
   color: var(--haze);
   font-size: 0.88rem;
   letter-spacing: 0.06em;
 }
 .site-nav a:hover { color: var(--lightning); text-decoration: none; }
+
+/* Prominent Documentation entry point. */
+.site-nav .nav-docs {
+  color: var(--night);
+  background: var(--lightning);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.32rem 0.95rem;
+  transition: box-shadow 120ms ease, transform 120ms ease;
+}
+.site-nav .nav-docs:hover {
+  color: var(--night);
+  box-shadow: 0 2px 18px rgba(245, 197, 24, 0.4);
+  transform: translateY(-1px);
+}
 
 /* ---------- Hero ---------- */
 
@@ -190,6 +205,68 @@ a:hover { text-decoration: underline; }
   margin-right: 0.5rem;
 }
 .section-head p { color: var(--haze); }
+
+/* ---------- Demo ---------- */
+
+.demo-teaser,
+.demo-player { margin: 0; }
+
+.demo-teaser video,
+.demo-player video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--night-line);
+  border-radius: var(--radius);
+  background: var(--night-raised);
+}
+
+.demo-teaser figcaption,
+.demo-player figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--haze);
+  margin-top: 0.6rem;
+}
+
+.demo-main {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(15rem, 2fr);
+  gap: 1.6rem;
+  align-items: start;
+  margin-top: 2.2rem;
+}
+
+.demo-notes ul {
+  list-style: none;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.demo-notes li {
+  color: var(--haze);
+  font-size: 0.92rem;
+  border-left: 2px solid var(--night-line);
+  padding-left: 1rem;
+}
+.demo-notes li strong { color: var(--cloud); }
+.demo-notes li em { color: var(--lightning); font-style: normal; }
+.demo-notes code {
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  color: var(--ion);
+}
+
+.demo-links {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 1.3rem;
+}
+
+@media (max-width: 52rem) {
+  .demo-main { grid-template-columns: 1fr; }
+}
 
 /* ---------- Stack cards ---------- */
 
@@ -313,6 +390,14 @@ a:hover { text-decoration: underline; }
   font-size: 0.75rem;
   color: var(--haze);
 }
+.footer-links { display: flex; gap: 1.2rem; }
+.footer-links a {
+  color: var(--haze);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.footer-links a:hover { color: var(--lightning); text-decoration: none; }
+
 .footer-legal { color: var(--haze); font-size: 0.8rem; }
 
 /* ---------- Small screens ---------- */

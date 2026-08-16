@@ -82,6 +82,44 @@ One accent dominant per composition: yellow leads, blue supports.
   (`--hiko-font-mono`). Codenames are always lowercase mono: `h3x`,
   `vda5050-air`, `gnss-denied`.
 
+## Approved promo imagery
+
+The demo media set (August 2026) is approved promotional imagery. It is hosted
+in `the-hiko-company.github.io/landing/media/` and served from
+`https://the-hiko-company.github.io/media/` — reference it from there rather
+than duplicating the files into other repos.
+
+| File | Frame |
+|---|---|
+| `01-title.png` | Title card (brand design) |
+| `02-conductor-dag.png` | Conductor DAG bring-up, waves + lifecycle states |
+| `03-hover-telemetry.png` | Closed-loop hover + step setpoints, telemetry panels |
+| `04-square-hero.png` | Autonomous waypoint square — the hero frame |
+| `05-gnss-denied.png` | 30 s GNSS blackout, ESKF dead reckoning + recovery |
+| `06-mujoco-split.png` | Same mission on hikosim vs MuJoCo (HSB bridge) |
+| `07-matrix-outro.png` | Simulator × autopilot matrix + outro |
+| `hiko-stack-demo.mp4` | Full 95 s demo (1080p, silent) |
+| `hiko-stack-teaser.mp4` | 15 s highlight cut |
+
+**Provenance — and the claim we make with them.** Every trajectory, telemetry
+trace, estimator flag, and lifecycle transition in these frames comes from four
+real closed-loop flights recorded end-to-end by the stack's own pipeline
+(`hiko_recorder` → MCAP → Parquet) — hikosim and MuJoCo plants, Conductor
+bring-up, an injected 30 s GNSS blackout, missions run to COMPLETED verdicts.
+Nothing was synthesized at render time. Only the title/outro cards are pure
+brand design, and playback is time-compressed with the real flight clock shown
+on frame.
+
+Usage rules:
+
+- Market them as **real recorded flights in simulation** — never imply hardware
+  flights, and never trim away the on-frame honesty labels ("time-dilated",
+  "session ...", the FLOWN/ready/roadmap distinction on the matrix card).
+- These are the only approved captures of this demo; don't recolor, re-plot, or
+  re-render variants. New captures come from re-running the pipeline.
+- The full "what you are watching / reproduce it" breakdown lives at
+  [the-hiko-company.github.io/docs/demo](https://the-hiko-company.github.io/docs/demo/).
+
 ## Naming
 
 - Org in prose: "The Hiko Company". Product: "the Hiko Stack".
