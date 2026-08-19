@@ -1,0 +1,13 @@
+quadrotor up — mode 'stabilize'
+
+hiko-os timing report — graph 615d9657d6cfa5d4, mode 'failsafe'
+  ticks 23988   elapsed 20.001 s   arena 134848/4194304 B
+  overruns 0   deadline misses 10   mode changes 1 (worst 0 us)
+  participant                runs    mean us     max us  budget us    util   overrun    miss
+  imu                       19992        1.0       23.3       50.0    0.47         0       4
+  attitude_estimator         9998        0.6       19.7      150.0    0.13         0       3
+  rate_controller            7998        0.8       18.5      200.0    0.09         0       3
+  telemetry                   200        1.7       16.9      800.0    0.02         0       0
+
+imu 19992 samples   motor commands 7998   starved cycles 0   last throttle 0.106
+telemetry frames 3980 (0 after the link was lost)

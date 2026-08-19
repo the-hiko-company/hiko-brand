@@ -1,0 +1,30 @@
+hiko-plan  /tmp/claude-1000/-home-wardn-dev-the-hiko-company/62173ece-31c0-42a9-826d-7eca9ce1190b/scratchpad/demo.yaml
+  graph hash  55d9c3d119801854
+  runtime     quadrotor   initial mode 'stabilize'
+  3 participants, 2 types, 2 modes
+
+validation      ok  (no problems)
+
+schedule
+  participant             rate Hz  budget us deadline us     util
+  imu                      1000.0         50       1000    0.050
+  controller                400.0        200       2000    0.080
+  telemetry                  20.0        800      50000    0.016
+  mode 'stabilize' utilisation 0.146  ok 
+  mode 'failsafe' utilisation 0.130  ok 
+
+memory
+  topic                     slots    bytes   pool bytes
+  /imu                          5       56          280
+  /motors                      35       40         1400
+  pools                        1680 B  (1.6 KiB)
+  queues                        272 B  (0.3 KiB)
+  overhead                   173056 B  (169.0 KiB)
+  total required             175008 B  (170.9 KiB)
+  declared arena             262144 B  (256.0 KiB)
+  fits                   ok   (66.8% used)
+
+parameters (3)
+  imu.noise_sigma  real         mutable  [0, 0.1]
+  controller.kp    real         mutable  [0, 20]
+  controller.frame string       frozen 
