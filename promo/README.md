@@ -1,4 +1,12 @@
-# The runtime promo film
+# The promo films
+
+Three films, one rule, three renderers:
+
+| Film | Renderer | Artefacts |
+|---|---|---|
+| runtime, 76 s | `render_promo.py` | `artifacts/` |
+| navigation, 94 s | `render_nav_promo.py` | `artifacts/nav/` |
+| platforms & flight, 85 s | `render_flight_promo.py` | `artifacts/flight/` |
 
 `render_promo.py` renders the 76-second Hiko runtime film — 1824 frames at
 24 fps, Pillow for the frames and ffmpeg for the encode. No motion-graphics
@@ -37,7 +45,26 @@ Needs Pillow, ffmpeg, and DejaVu fonts. The output is published to the site as
 | `artifacts/timing_real.txt` | `hiko_sdk_quadrotor --real` (hiko-sdk), stdout |
 | `artifacts/plan.txt` | `hiko-plan examples/quadrotor.yaml` (hiko-os), stdout |
 | `artifacts/rl_run.json` | `python3 -m hiko_rl.playground.train` (hiko-rl), run record |
+| `artifacts/flight/*.json` | `capture_flight_artifacts.sh` — real closed-loop runs |
+| `artifacts/flight/platforms/*.yaml` | the shipped catalogue, copied verbatim |
 
 Re-run those, drop the output in, re-render. If a number in the film ever
 disagrees with what the stack currently does, the artefact is stale — fix the
 artefact, never the renderer.
+
+## The platforms & flight film
+
+```sh
+./promo/capture_flight_artifacts.sh          # fly all three, plus Gazebo
+python3 promo/render_flight_promo.py \
+    --artifacts promo/artifacts/flight \
+    --out       /tmp/hiko-flight.mp4 \
+    --poster    /tmp/hiko-flight-poster.jpg
+```
+
+Every ground track in it is the vehicle's actual position over time and every
+figure quoted is a metric the flight check computed. The capture script exists
+so the film is never re-rendered against numbers somebody typed — it is
+re-rendered against the output of a run anyone can repeat.
+
+Published to the site as `landing/media/hiko-flight.mp4`.

@@ -1,0 +1,108 @@
+# Copyright (c) 2026 The Hiko Company. All rights reserved.
+#
+# quadplane — quad-X lift rotors plus a wing and a forward prop. The reference
+# VTOL.
+#
+# A VTOL is the case that breaks anything assuming one actuator kind: it has
+# BOTH lift rotors and control surfaces, so its mixer output is an
+# ActuatorGroup::kMixed and goes on the wire as TWO ActuatorCommand messages
+# (motors, then servos). One message cannot carry both -- the ranges differ
+# ([0,1] against [-1,1]) and the split point has no wire representation.
+#
+# It also has both envelopes: it can hover like the x500 and cruise like the
+# talon, so min_speed is the stall speed of the WING and the hover capability is
+# carried in the capability bits rather than by min_speed being zero.
+
+id: quadplane
+name: Quadplane VTOL
+description: quad-X lift rotors plus wing and forward prop, the reference VTOL
+class: vtol
+
+mass_kg: 3.6
+inertia_diag_kg_m2: [0.09, 0.11, 0.16]
+
+rotors:
+  - position_frd_m: [0.25, 0.25, 0.0]
+    spin: -1.0
+    k_thrust: 1.05e-5
+    k_torque: 1.8e-7
+    omega_max_rad_s: 1150.0
+  - position_frd_m: [-0.25, -0.25, 0.0]
+    spin: -1.0
+    k_thrust: 1.05e-5
+    k_torque: 1.8e-7
+    omega_max_rad_s: 1150.0
+  - position_frd_m: [0.25, -0.25, 0.0]
+    spin: 1.0
+    k_thrust: 1.05e-5
+    k_torque: 1.8e-7
+    omega_max_rad_s: 1150.0
+  - position_frd_m: [-0.25, 0.25, 0.0]
+    spin: 1.0
+    k_thrust: 1.05e-5
+    k_torque: 1.8e-7
+    omega_max_rad_s: 1150.0
+
+wing_area_m2: 0.48
+wingspan_m: 1.8
+chord_m: 0.27
+forward_thrust_max_n: 9.0
+
+surfaces:
+  - name: aileron_left
+    max_deflection_rad: 0.35
+    direction: 1.0
+  - name: aileron_right
+    max_deflection_rad: 0.35
+    direction: -1.0
+  - name: elevator
+    max_deflection_rad: 0.35
+    direction: 1.0
+  - name: rudder
+    max_deflection_rad: 0.30
+    direction: 1.0
+
+envelope:
+  cruise_speed_m_s: 16.0
+  max_speed_m_s: 24.0
+  min_speed_m_s: 12.0         # wing stall; it hovers on the lift rotors instead
+  max_climb_rate_m_s: 4.0
+  max_turn_rate_rad_s: 0.9
+  max_accel_m_s2: 7.0
+  endurance_s: 2100.0
+  service_ceiling_agl_m: 300.0
+
+footprint:
+  radius_m: 1.0
+  height_m: 0.35
+  safety_margin_m: 0.4
+  min_altitude_agl_m: 10.0
+
+sensors:
+  - name: imu
+    kind: imu
+    topic: /hiko/hal/imu
+    rate_hz: 250.0
+  - name: gnss
+    kind: gnss
+    topic: /hiko/hal/gnss
+    rate_hz: 10.0
+  - name: baro
+    kind: baro
+    topic: /hiko/hal/baro
+    rate_hz: 50.0
+  - name: mag
+    kind: mag
+    topic: /hiko/hal/mag
+    rate_hz: 100.0
+  - name: lidar
+    kind: lidar
+    topic: /hiko/sim/lidar
+    rate_hz: 10.0
+    range_max_m: 60.0
+
+# Everything a multirotor and a fixed wing can do, which is the point of a VTOL.
+capabilities: 255
+
+controller_plugin: hiko_controllers/CascadedController
+mixer_plugin: hiko_control_api/VtolMixer

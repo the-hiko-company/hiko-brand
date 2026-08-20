@@ -1,0 +1,90 @@
+# Copyright (c) 2026 The Hiko Company. All rights reserved.
+#
+# x500 — 500-class quad-X multirotor, ~2 kg AUW. The reference multirotor: the
+# demos, the component tests and the hikosim model config all resolve to this.
+#
+# Frames: body FRD, so a rotor at +x is FORWARD and +y is RIGHT. `spin` is about
+# +z_FRD (down), so +1 is CLOCKWISE seen from above. The SDF exporter inverts
+# that because an SDF joint axis is +z FLU; every exported multirotor once had
+# inverted yaw torque because of exactly this.
+#
+# Motor order is PX4's: 1 front-right CCW, 2 back-left CCW, 3 front-left CW,
+# 4 back-right CW. Keeping it means a HAL that speaks PX4 needs no remap.
+
+id: x500
+name: Holybro X500 (quad-X)
+description: 500-class quadrotor, the reference multirotor for demos and tests
+class: multirotor
+
+mass_kg: 2.0
+inertia_diag_kg_m2: [0.021, 0.022, 0.036]
+
+rotors:
+  - position_frd_m: [0.177, 0.177, 0.0]     # 1 front-right
+    spin: -1.0
+    k_thrust: 8.55e-6
+    k_torque: 1.4e-7
+    omega_max_rad_s: 1100.0
+  - position_frd_m: [-0.177, -0.177, 0.0]   # 2 back-left
+    spin: -1.0
+    k_thrust: 8.55e-6
+    k_torque: 1.4e-7
+    omega_max_rad_s: 1100.0
+  - position_frd_m: [0.177, -0.177, 0.0]    # 3 front-left
+    spin: 1.0
+    k_thrust: 8.55e-6
+    k_torque: 1.4e-7
+    omega_max_rad_s: 1100.0
+  - position_frd_m: [-0.177, 0.177, 0.0]    # 4 back-right
+    spin: 1.0
+    k_thrust: 8.55e-6
+    k_torque: 1.4e-7
+    omega_max_rad_s: 1100.0
+
+envelope:
+  cruise_speed_m_s: 5.0
+  max_speed_m_s: 12.0
+  min_speed_m_s: 0.0          # it can hover; a wing cannot
+  max_climb_rate_m_s: 3.0
+  max_turn_rate_rad_s: 2.0
+  max_accel_m_s2: 8.0
+  endurance_s: 1200.0
+  service_ceiling_agl_m: 120.0
+
+footprint:
+  # Must ENCLOSE the vehicle: the rotor span is 0.25 m, so anything smaller puts
+  # the propellers outside the volume a planner keeps clear.
+  radius_m: 0.45
+  height_m: 0.25
+  safety_margin_m: 0.15
+  min_altitude_agl_m: 2.0
+
+sensors:
+  - name: imu
+    kind: imu
+    topic: /hiko/hal/imu
+    rate_hz: 250.0
+  - name: gnss
+    kind: gnss
+    topic: /hiko/hal/gnss
+    rate_hz: 10.0
+  - name: baro
+    kind: baro
+    topic: /hiko/hal/baro
+    rate_hz: 50.0
+  - name: mag
+    kind: mag
+    topic: /hiko/hal/mag
+    rate_hz: 100.0
+  - name: lidar
+    kind: lidar
+    topic: /hiko/sim/lidar
+    rate_hz: 10.0
+    offset_frd_m: [0.0, 0.0, -0.05]
+    range_max_m: 40.0
+
+# hiko_msgs/Capabilities CAP_*: HOVER | VERTICAL_TAKEOFF | PRECISION_LANDING | EO_SENSOR
+capabilities: 15
+
+controller_plugin: hiko_controllers/Se3Controller
+mixer_plugin: hiko_control_api/MultirotorMixer
