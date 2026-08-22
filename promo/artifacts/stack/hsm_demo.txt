@@ -1,0 +1,66 @@
+chart: /home/wardn/dev/hiko_ws/install/hiko_hsm/share/hiko_hsm/charts/flight.xml
+work:  ./artifacts/stack/hsm
+
+a nominal sortie, interrupted
+  [PASS] chart loads and the engine activates
+  [PASS] starts in the initial leaf -- leaf=Idle
+  [PASS] introspection carries the chart's shape -- 11 states, Track under Mission
+  [PASS] a guarded transition fires when the guard passes -- leaf=Arming
+  [PASS] entering a composite enters its initial child
+  [PASS] two levels of nesting resolve to the right leaf
+  [PASS] an unhandled event is reported, not swallowed -- ignored=1
+  [PASS] a superstate failsafe preempts a leaf three levels down -- leaf=RTL
+  [PASS] shallow history resumes the interrupted sub-mode -- leaf=Track
+  [PASS] a terminal state ends the run -- leaf=Disarmed finished=True
+  [PASS] the latched status reports the outcome
+
+a sortie that never leaves the ground
+  [PASS] the same chart, a different guard binding
+  [PASS] a guard that refuses holds the machine where it is -- leaf=Idle
+  [PASS] and the abort path is reachable from Idle
+
+flying the fleet's week (12 sorties)
+  [PASS] eight more sorties flew -- flown=8
+  [PASS] every run was recorded -- 10 records
+  [PASS] records carry the machine, the outcome and the transitions -- outcome=SUCCESS transitions=9
+
+what the oracle makes of them
+  fitted to 10 runs, 60 transitions
+    caveat: a chain fitted to 10 runs is a hint, not a number.
+  
+  where the odds change (and where the failure flows):
+    - 14.2%  Track                   P(ok from here)  63.9%   flow  36.1%   visits/run 1.00  dwell 0.2s
+    -  4.2%  Idle                    P(ok from here)  59.2%   flow  40.8%   visits/run 1.00  dwell 0.1s
+    -  2.0%  RTL                     P(ok from here)  84.1%   flow  11.1%   visits/run 0.70  dwell 0.2s
+    -  0.0%  Aborted                 P(ok from here)  16.7%   flow  33.3%   visits/run 0.40  [terminal]
+    -  0.0%  Arming                  P(ok from here)  63.9%   flow  32.5%   visits/run 0.90  dwell 0.2s
+    -  0.0%  Loiter                  P(ok from here)  63.9%   flow  32.5%   visits/run 0.90  dwell 0.2s
+    -  0.0%  Takeoff                 P(ok from here)  63.9%   flow  32.5%   visits/run 0.90  dwell 0.1s
+    -  0.0%  Disarmed                P(ok from here)  87.5%   flow   7.5%   visits/run 0.60  [terminal]
+    -  0.0%  Land                    P(ok from here)  87.5%   flow   7.5%   visits/run 0.60  dwell 0.2s
+  
+  states the good ending cannot be reached from:
+    Aborted
+  
+  what has worked better from the same state:
+    in Track
+      taking   MOTOR_FAILURE  (lower bound 6.1%, 3 times)
+      instead  MISSION_COMPLETE  (lower bound 43.6%, 6 times)
+      withheld: confidence intervals overlap -- the difference could be luck
+    in Idle
+      taking   ABORT  (lower bound 0.0%, 1 times)
+      instead  ARM_REQUEST  (lower bound 35.4%, 9 times)
+      withheld: confidence intervals overlap -- the difference could be luck
+    in RTL
+      taking   RESUME  (lower bound 20.7%, 1 times)
+      instead  RTL_COMPLETE  (lower bound 43.6%, 6 times)
+      withheld: confidence intervals overlap -- the difference could be luck
+    in Track
+      taking   BATTERY_CRITICAL  (lower bound 20.7%, 1 times)
+      instead  MISSION_COMPLETE  (lower bound 43.6%, 6 times)
+      withheld: confidence intervals overlap -- the difference could be luck
+  [PASS] the oracle reads the engine's records
+  [PASS] and it names the state the failures actually flowed through
+
+19/19 checks passed
+artifacts: ./artifacts/stack/hsm

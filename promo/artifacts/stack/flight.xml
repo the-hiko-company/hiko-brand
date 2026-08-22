@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+  The flight supervisor, as a file.
+
+  This is the same machine as hiko_hsm/src/flight_supervisor.cpp, which is
+  ~90 lines of C++ that has to be recompiled and reflashed to change one
+  transition. Here it is data: hsm_engine_node loads it, a binding library
+  supplies the four commands and one guard by name, and the dashboard draws it
+  without anybody parsing C++.
+
+  The one deliberate difference: this chart has TERMINAL states. The C++
+  supervisor loops forever (Disarmed -RESET-> Idle), which is right for a
+  supervisor that outlives many sorties but leaves the state oracle with no
+  outcome to learn from. Marking where a sortie ENDS, and whether it ended
+  well, is what makes a run recordable.
+-->
+<statechart name="flight" initial="Idle">
+
+  <state name="Idle">
+    <!-- The guard is the only thing standing between an operator's button and
+         a spinning propeller, which is why it is bound to compiled code and
+         why an unbound name refuses to load. -->
+    <transition event="ARM_REQUEST" target="Arming" guard="preflight_ok"/>
+    <transition event="ABORT" target="Aborted"/>
+  </state>
+
+  <state name="Arming" on_entry="command_arm">
+    <transition event="ARMED" target="Takeoff"/>
+    <transition event="ARM_FAILED" target="Idle"/>
+  </state>
+
+  <!-- Everything airborne lives inside Flight, so the failsafes below are
+       written ONCE and preempt whatever leaf is active. This is the property
+       a flat machine cannot give you: five leaves live inside Flight and there
+       are four failsafes, so a flat chart needs twenty transitions instead of
+       four -- and the one you forget is the one that matters. -->
+  <state name="Flight" initial="Takeoff">
+
+    <state name="Takeoff">
+      <transition event="TAKEOFF_COMPLETE" target="Mission"/>
+    </state>
+
+    <!-- Shallow history: a failsafe that interrupts tracking and then resumes
+         should come back to Track, not to Loiter. -->
+    <state name="Mission" initial="Loiter" history="shallow">
+      <state name="Loiter">
+        <transition event="TRACK_TARGET" target="Track"/>
+      </state>
+      <state name="Track">
+        <transition event="TARGET_LOST" target="Loiter"/>
+      </state>
+      <transition event="MISSION_COMPLETE" target="RTL"/>
+    </state>
+
+    <state name="RTL" on_entry="command_rtl">
+      <transition event="RTL_COMPLETE" target="Land"/>
+      <transition event="RESUME" target="Mission"/>
+    </state>
+
+    <state name="Land" on_entry="command_land">
+      <transition event="TOUCHDOWN" target="Disarmed"/>
+    </state>
+
+    <transition event="BATTERY_CRITICAL" target="RTL"/>
+    <transition event="LINK_LOST" target="RTL"/>
+    <transition event="GEOFENCE_BREACH" target="Land"/>
+    <transition event="MOTOR_FAILURE" target="Aborted"/>
+  </state>
+
+  <state name="Disarmed" terminal="success" on_entry="command_disarm"/>
+  <state name="Aborted" terminal="failure" on_entry="command_disarm"/>
+
+</statechart>

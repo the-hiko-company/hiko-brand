@@ -1,0 +1,5 @@
+wrote 400 runs to /tmp/tmp.E7RfgBU1AW/takeoff.jsonl: FAILURE=22 SUCCESS=378
+wrote 400 runs to /tmp/tmp.E7RfgBU1AW/fly.jsonl: FAILURE=46 SUCCESS=354
+wrote 400 runs to /tmp/tmp.E7RfgBU1AW/land.jsonl: FAILURE=29 SUCCESS=371
+1200 missions, 5195 node outcomes, 12 slots, 3 conformance vectors
+refreshed. run 'npm test' to check the algebra still agrees.

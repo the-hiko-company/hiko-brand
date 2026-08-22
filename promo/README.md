@@ -1,12 +1,13 @@
 # The promo films
 
-Three films, one rule, three renderers:
+Four films, one rule, four renderers:
 
 | Film | Renderer | Artefacts |
 |---|---|---|
 | runtime, 76 s | `render_promo.py` | `artifacts/` |
 | navigation, 94 s | `render_nav_promo.py` | `artifacts/nav/` |
 | platforms & flight, 85 s | `render_flight_promo.py` | `artifacts/flight/` |
+| autonomy, 95 s | `render_stack_promo.py` | `artifacts/stack/` |
 
 `render_promo.py` renders the 76-second Hiko runtime film — 1824 frames at
 24 fps, Pillow for the frames and ffmpeg for the encode. No motion-graphics
@@ -23,8 +24,16 @@ number.
 
 That is not decoration. A promo built on numbers nobody can reproduce is a promo
 that does not survive its first demo, and the honesty is load-bearing in the
-other direction too: the run shown has ten deadline misses out of 24 000 ticks,
-and the film says so on screen rather than cropping to the good part.
+other direction too: the runtime film shows ten deadline misses out of 24 000
+ticks, and the autonomy film gives a whole scene to the one variant of eight
+that tumbled. Both say so on screen rather than cropping to the good part.
+
+The autonomy film is the strictest case, because most of what it shows is
+arithmetic rather than a trajectory. Its capture script re-runs the statechart
+demo, regenerates the mission corpus, re-flies the estimator closed-loop check
+and re-sweeps the forge, so every figure on screen is one an artefact file
+contains — including the chart, which is displayed verbatim from the file the
+engine loads.
 
 ## Reproducing
 

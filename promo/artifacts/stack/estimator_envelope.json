@@ -1,0 +1,139 @@
+{
+  "spec": "estimator_envelope",
+  "platform": "x500",
+  "rtf": 10.0,
+  "results": [
+    {
+      "combo": {
+        "arrival_radius_m": 3.0,
+        "wind_north": 0.0
+      },
+      "tag": "arrival_radius_m=3.0_wind_north=0.0",
+      "outcome": "held",
+      "legs_reached": 3,
+      "detail": "",
+      "metrics": {
+        "achieved_rtf": 5.03,
+        "mean_track_err_m": 1.864,
+        "max_tilt_deg": 39.0,
+        "truth_samples": 899,
+        "final_err_m": 2.12
+      }
+    },
+    {
+      "combo": {
+        "arrival_radius_m": 3.0,
+        "wind_north": 4.0
+      },
+      "tag": "arrival_radius_m=3.0_wind_north=4.0",
+      "outcome": "held",
+      "legs_reached": 3,
+      "detail": "",
+      "metrics": {
+        "achieved_rtf": 4.99,
+        "mean_track_err_m": 1.46,
+        "max_tilt_deg": 52.5,
+        "truth_samples": 1077,
+        "final_err_m": 1.33
+      }
+    },
+    {
+      "combo": {
+        "arrival_radius_m": 3.0,
+        "wind_north": 8.0
+      },
+      "tag": "arrival_radius_m=3.0_wind_north=8.0",
+      "outcome": "held",
+      "legs_reached": 3,
+      "detail": "",
+      "metrics": {
+        "achieved_rtf": 5.08,
+        "mean_track_err_m": 1.655,
+        "max_tilt_deg": 39.2,
+        "truth_samples": 990,
+        "final_err_m": 2.16
+      }
+    },
+    {
+      "combo": {
+        "arrival_radius_m": 3.0,
+        "wind_north": 12.0
+      },
+      "tag": "arrival_radius_m=3.0_wind_north=12.0",
+      "outcome": "held",
+      "legs_reached": 3,
+      "detail": "",
+      "metrics": {
+        "achieved_rtf": 5.03,
+        "mean_track_err_m": 1.797,
+        "max_tilt_deg": 38.2,
+        "truth_samples": 803,
+        "final_err_m": 0.98
+      }
+    },
+    {
+      "combo": {
+        "arrival_radius_m": 5.0,
+        "wind_north": 0.0
+      },
+      "tag": "arrival_radius_m=5.0_wind_north=0.0",
+      "outcome": "held",
+      "legs_reached": 3,
+      "detail": "",
+      "metrics": {
+        "achieved_rtf": 4.93,
+        "mean_track_err_m": 1.782,
+        "max_tilt_deg": 33.4,
+        "truth_samples": 625,
+        "final_err_m": 1.15
+      }
+    },
+    {
+      "combo": {
+        "arrival_radius_m": 5.0,
+        "wind_north": 4.0
+      },
+      "tag": "arrival_radius_m=5.0_wind_north=4.0",
+      "outcome": "held",
+      "legs_reached": 3,
+      "detail": "",
+      "metrics": {
+        "achieved_rtf": 5.04,
+        "mean_track_err_m": 2.439,
+        "max_tilt_deg": 37.0,
+        "truth_samples": 747,
+        "final_err_m": 2.07
+      }
+    },
+    {
+      "combo": {
+        "arrival_radius_m": 5.0,
+        "wind_north": 8.0
+      },
+      "tag": "arrival_radius_m=5.0_wind_north=8.0",
+      "outcome": "tumbled",
+      "legs_reached": 0,
+      "detail": "60 deg of tilt on leg 0",
+      "metrics": {
+        "achieved_rtf": 7.32
+      }
+    },
+    {
+      "combo": {
+        "arrival_radius_m": 5.0,
+        "wind_north": 12.0
+      },
+      "tag": "arrival_radius_m=5.0_wind_north=12.0",
+      "outcome": "held",
+      "legs_reached": 3,
+      "detail": "",
+      "metrics": {
+        "achieved_rtf": 6.32,
+        "mean_track_err_m": 2.376,
+        "max_tilt_deg": 37.5,
+        "truth_samples": 646,
+        "final_err_m": 3.48
+      }
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+{
+ "machine": "flight",
+ "run_id": "sortie-nominal",
+ "initial": "Idle",
+ "leaf": "Disarmed",
+ "events": 10,
+ "ignored": 1,
+ "finished": true,
+ "path": [
+  "Disarmed"
+ ],
+ "states": [
+  {
+   "name": "Idle",
+   "parent": "",
+   "initial": "",
+   "history": "",
+   "terminal": "none",
+   "visits": 1,
+   "dwell_s": 0.0602655,
+   "active": false
+  },
+  {
+   "name": "Arming",
+   "parent": "",
+   "initial": "",
+   "history": "",
+   "terminal": "none",
+   "visits": 1,
+   "dwell_s": 0.380029,
+   "active": false
+  },
+  {
+   "name": "Flight",
+   "parent": "",
+   "initial": "Takeoff",
+   "history": "",
+   "terminal": "none",
+   "visits": 0,
+   "dwell_s": 0,
+   "active": false
+  },
+  {
+   "name": "Takeoff",
+   "parent": "Flight",
+   "initial": "",
+   "history": "",
+   "terminal": "none",
+   "visits": 1,
+   "dwell_s": 0.339957,
+   "active": false
+  },
+  {
+   "name": "Mission",
+   "parent": "Flight",
+   "initial": "Loiter",
+   "history": "shallow",
+   "terminal": "none",
+   "visits": 0,
+   "dwell_s": 0,
+   "active": false
+  },
+  {
+   "name": "Loiter",
+   "parent": "Mission",
+   "initial": "",
+   "history": "",
+   "terminal": "none",
+   "visits": 1,
+   "dwell_s": 0.379964,
+   "active": false
+  },
+  {
+   "name": "Track",
+   "parent": "Mission",
+   "initial": "",
+   "history": "",
+   "terminal": "none",
+   "visits": 2,
+   "dwell_s": 1.06018,
+   "active": false
+  },
+  {
+   "name": "RTL",
+   "parent": "Flight",
+   "initial": "",
+   "history": "",
+   "terminal": "none",
+   "visits": 2,
+   "dwell_s": 0.739826,
+   "active": false
+  },
+  {
+   "name": "Land",
+   "parent": "Flight",
+   "initial": "",
+   "history": "",
+   "terminal": "none",
+   "visits": 1,
+   "dwell_s": 0.38004,
+   "active": false
+  },
+  {
+   "name": "Disarmed",
+   "parent": "",
+   "initial": "",
+   "history": "",
+   "terminal": "success",
+   "visits": 1,
+   "dwell_s": 2.2245e-05,
+   "active": true
+  },
+  {
+   "name": "Aborted",
+   "parent": "",
+   "initial": "",
+   "history": "",
+   "terminal": "failure",
+   "visits": 0,
+   "dwell_s": 0,
+   "active": false
+  }
+ ],
+ "transitions": [
+  {
+   "from": "Idle",
+   "event": "ARM_REQUEST",
+   "to": "Arming",
+   "guard": "preflight_ok",
+   "taken": 1
+  },
+  {
+   "from": "Idle",
+   "event": "ABORT",
+   "to": "Aborted",
+   "guard": "",
+   "taken": 0
+  },
+  {
+   "from": "Arming",
+   "event": "ARMED",
+   "to": "Takeoff",
+   "guard": "",
+   "taken": 1
+  },
+  {
+   "from": "Arming",
+   "event": "ARM_FAILED",
+   "to": "Idle",
+   "guard": "",
+   "taken": 0
+  },
+  {
+   "from": "Flight",
+   "event": "BATTERY_CRITICAL",
+   "to": "RTL",
+   "guard": "",
+   "taken": 0
+  },
+  {
+   "from": "Flight",
+   "event": "LINK_LOST",
+   "to": "RTL",
+   "guard": "",
+   "taken": 0
+  },
+  {
+   "from": "Flight",
+   "event": "GEOFENCE_BREACH",
+   "to": "Land",
+   "guard": "",
+   "taken": 0
+  },
+  {
+   "from": "Flight",
+   "event": "MOTOR_FAILURE",
+   "to": "Aborted",
+   "guard": "",
+   "taken": 0
+  },
+  {
+   "from": "Takeoff",
+   "event": "TAKEOFF_COMPLETE",
+   "to": "Mission",
+   "guard": "",
+   "taken": 1
+  },
+  {
+   "from": "Mission",
+   "event": "MISSION_COMPLETE",
+   "to": "RTL",
+   "guard": "",
+   "taken": 0
+  },
+  {
+   "from": "Loiter",
+   "event": "TRACK_TARGET",
+   "to": "Track",
+   "guard": "",
+   "taken": 1
+  },
+  {
+   "from": "Track",
+   "event": "TARGET_LOST",
+   "to": "Loiter",
+   "guard": "",
+   "taken": 0
+  },
+  {
+   "from": "RTL",
+   "event": "RTL_COMPLETE",
+   "to": "Land",
+   "guard": "",
+   "taken": 1
+  },
+  {
+   "from": "RTL",
+   "event": "RESUME",
+   "to": "Mission",
+   "guard": "",
+   "taken": 1
+  },
+  {
+   "from": "Land",
+   "event": "TOUCHDOWN",
+   "to": "Disarmed",
+   "guard": "",
+   "taken": 1
+  }
+ ]
+}
