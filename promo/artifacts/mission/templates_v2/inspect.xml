@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<root>
+  <BehaviorTree id="inspect">
+    <Sequence name="inspect_step">
+      <WaitFor seconds="2.0"/>
+      <Fallback name="inspect_or_move_on">
+        <Retry num_attempts="2">
+          <TrackTarget track_id="{arg1}" timeout_lost_s="15.0"/>
+        </Retry>
+        <AlwaysSuccess/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+</root>

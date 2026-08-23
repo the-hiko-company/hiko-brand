@@ -1,0 +1,1 @@
+{"mission_id": "run-ca2ad5d8", "tree": "survey", "outcome": "SUCCESS", "duration_s": 10.03, "context": {"wind_mps": 0.0}, "nodes": [{"path": "survey/leg_1", "type": "GotoWaypoint", "status": "SUCCESS", "ticks": 200}]}

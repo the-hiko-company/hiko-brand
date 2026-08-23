@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<root>
+  <BehaviorTree id="fly">
+    <Retry num_attempts="3">
+      <Timeout msec="180000">
+        <GotoWaypoint target="{arg0}" acceptance_radius="1.0"/>
+      </Timeout>
+    </Retry>
+  </BehaviorTree>
+</root>

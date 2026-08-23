@@ -1,0 +1,14 @@
+P(success) = 67.8%   (from 400 missions, 7327 node outcomes)
+
+where it is likely to go wrong:
+   98.8%  plan_steps/takeoff_0/Timeout/takeoff_however_this_autopilot_can/Retry/Takeoff  [Takeoff]  p=0.3%  0/397
+   17.3%  plan_steps/inspect_2/inspect_or_move_on/Retry/TrackTarget  [TrackTarget]  p=78.6%  227/288 (borrowed)
+   12.0%  plan_steps/inspect_2/WaitFor  [WaitFor]  p=87.0%  288/330
+   10.2%  plan_steps/fly_1/Timeout/GotoWaypoint  [GotoWaypoint]  p=89.0%  535/600 (borrowed)
+    8.6%  plan_steps/fly_3/Timeout/GotoWaypoint  [GotoWaypoint]  p=89.0%  535/600 (borrowed)
+    7.2%  plan_steps/rtl_4/Timeout/AwaitLanded  [AwaitLanded]  p=90.8%  187/205
+    6.2%  plan_steps/takeoff_0/Timeout/takeoff_however_this_autopilot_can/ClimbTo  [ClimbTo]  p=93.7%  373/397
+    3.4%  plan_steps/land_5/Land  [Land]  p=95.2%  179/187
+
+what has worked better in the same place:
+no alternative has been flown in any of these roles.

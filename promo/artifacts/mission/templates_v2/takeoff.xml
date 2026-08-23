@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!-- Template for MissionItem TYPE_TAKEOFF: arg0 = mission item id (unused).
+
+     A Fallback, not a Sequence: some autopilots have a native takeoff and some
+     do not. hikosim REFUSES every takeoff request -- "no native takeoff
+     (supports_takeoff=false); fly the climb offboard" -- so a template that
+     only knew how to ask the autopilot made every mission unflyable against
+     the in-house simulator, within one tick, for as long as the scenarios have
+     existed.
+
+     Asking first and climbing second is the right order: a native takeoff
+     knows about the airframe's own launch profile, and an offboard climb is the
+     fallback that always works. -->
+<root>
+  <BehaviorTree id="takeoff">
+    <Sequence name="takeoff_step">
+      <!-- Arm first. A native takeoff arms as a side effect, which is why the
+           absence of this step went unnoticed for as long as the only tested
+           path was a real autopilot. hikosim will not spin a rotor until
+           armed, so an offboard climb without it commands a setpoint at a
+           vehicle that is never going to move. -->
+      <Retry num_attempts="3">
+        <Arm arm="true"/>
+      </Retry>
+      <SetMode mode="OFFBOARD"/>
+      <Timeout msec="60000">
+        <Fallback name="takeoff_however_this_autopilot_can">
+          <Retry num_attempts="2">
+            <Takeoff altitude="15.0"/>
+          </Retry>
+          <ClimbTo altitude_agl_m="15.0" tolerance_m="1.5"/>
+        </Fallback>
+      </Timeout>
+    </Sequence>
+  </BehaviorTree>
+</root>

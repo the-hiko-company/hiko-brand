@@ -1,0 +1,42 @@
+[
+ {
+  "run": 1,
+  "mission": "4-waypoint survey",
+  "outcome": "FAILURE",
+  "legs_reached": 0,
+  "legs_total": 3,
+  "estimator_error_mean_m": 596.763
+ },
+ {
+  "run": 2,
+  "mission": "4-waypoint survey",
+  "outcome": "FAILURE",
+  "legs_reached": 0,
+  "legs_total": 3,
+  "estimator_error_mean_m": 697.242
+ },
+ {
+  "run": 3,
+  "mission": "4-waypoint survey",
+  "outcome": "FAILURE",
+  "legs_reached": 0,
+  "legs_total": 3,
+  "estimator_error_mean_m": 326.024
+ },
+ {
+  "run": 4,
+  "mission": "4-waypoint survey",
+  "outcome": "FAILURE",
+  "legs_reached": 0,
+  "legs_total": 3,
+  "estimator_error_mean_m": 721.244
+ },
+ {
+  "run": 5,
+  "mission": "1-leg sortie",
+  "outcome": "SUCCESS",
+  "legs_reached": 1,
+  "legs_total": 1,
+  "estimator_error_mean_m": 1.184
+ }
+]

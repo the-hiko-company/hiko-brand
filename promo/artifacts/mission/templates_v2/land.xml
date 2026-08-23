@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Template for MissionItem TYPE_LAND: arg0 = mission item id (unused). -->
+<root>
+  <BehaviorTree id="land">
+    <Timeout msec="120000">
+      <Land/>
+    </Timeout>
+  </BehaviorTree>
+</root>

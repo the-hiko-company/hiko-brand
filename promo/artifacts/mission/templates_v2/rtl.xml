@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- Template for MissionItem TYPE_RTL: arg0 = mission item id (unused — RTL
+     returns to the autopilot's own launch point, not to a plan waypoint).
+
+     The mode change being accepted is not the end of the item. Handing the
+     aircraft to the autopilot and immediately reporting SUCCESS would run the
+     next step while the vehicle is still in the air, so the item completes only
+     once the platform reports disarmed. Five minutes is the outer bound for a
+     return leg; past that something is wrong and the mission should fail
+     loudly rather than wait forever. -->
+<root>
+  <BehaviorTree id="rtl">
+    <Sequence name="rtl_step">
+      <SetMode mode="RTL"/>
+      <Timeout msec="300000">
+        <AwaitLanded/>
+      </Timeout>
+    </Sequence>
+  </BehaviorTree>
+</root>

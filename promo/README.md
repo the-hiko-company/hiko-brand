@@ -1,6 +1,6 @@
 # The promo films
 
-Four films, one rule, four renderers:
+Five films, one rule, five renderers:
 
 | Film | Renderer | Artefacts |
 |---|---|---|
@@ -8,6 +8,7 @@ Four films, one rule, four renderers:
 | navigation, 94 s | `render_nav_promo.py` | `artifacts/nav/` |
 | platforms & flight, 85 s | `render_flight_promo.py` | `artifacts/flight/` |
 | autonomy, 95 s | `render_stack_promo.py` | `artifacts/stack/` |
+| one mission, 106 s | `render_mission_promo.py` | `artifacts/mission/` |
 
 `render_promo.py` renders the 76-second Hiko runtime film — 1824 frames at
 24 fps, Pillow for the frames and ffmpeg for the encode. No motion-graphics
@@ -28,7 +29,19 @@ other direction too: the runtime film shows ten deadline misses out of 24 000
 ticks, and the autonomy film gives a whole scene to the one variant of eight
 that tumbled. Both say so on screen rather than cropping to the good part.
 
-The autonomy film is the strictest case, because most of what it shows is
+The mission film is the strictest case of all, because its claim is that a
+prediction made BEFORE the mission flew matched what happened when it did. So
+its capture script runs in the order the film shows -- v1 composed and flown,
+scored; two edits; v2 scored against V1'S evidence while still unflown; only
+then v2 flown -- and nothing is back-filled.
+
+It also gives a whole scene to the stage that does not work. The four-waypoint
+survey does not fly closed-loop: the magnetometer's innovation gate cascades,
+nothing else observes yaw, and the sortie diverges by hundreds of metres. The
+film shows every attempt and names the defect rather than quietly flying a
+shorter mission and calling it the same thing.
+
+The autonomy film is the next strictest, because most of what it shows is
 arithmetic rather than a trajectory. Its capture script re-runs the statechart
 demo, regenerates the mission corpus, re-flies the estimator closed-loop check
 and re-sweeps the forge, so every figure on screen is one an artefact file

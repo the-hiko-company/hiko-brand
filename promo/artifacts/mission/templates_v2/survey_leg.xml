@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- Template for MissionItem TYPE_SURVEY_LEG: arg0 = mission item id; the leg
+     endpoint is resolved from the blackboard key wp_<arg0>, seeded by the
+     mission manager from the item's geodetic position.
+
+     A survey leg is a waypoint flown for coverage rather than for arrival, so
+     it uses a wider acceptance radius than `fly` — insisting on 1 m at the end
+     of a mapping lane makes the aircraft loiter to close a gap that does not
+     affect the sweep. The 5 m used here matches the smallest sensor swath the
+     coverage planner supports; a leg with its own acceptance_radius_m should
+     override it when per-item ports land. -->
+<root>
+  <BehaviorTree id="survey_leg">
+    <Timeout msec="300000">
+      <GotoWaypoint target="{arg0}" acceptance_radius="5.0"/>
+    </Timeout>
+  </BehaviorTree>
+</root>
